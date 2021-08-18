@@ -35,6 +35,36 @@ router.get("/active-callback", (req, res) => {
   });
 });
 
+//GET ACTIVE TODO USING STATIC METHODS
+router.get("/js", async (req, res) => {
+  try {
+    const data = await Todo.findByJS();
+    res.status(200).json({
+      result: data,
+      message: "Success",
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: "There was a server side errors",
+    });
+  }
+});
+
+//GET ACTIVE TODO USING query helpers
+router.get("/language", async (req, res) => {
+  try {
+    const data = await Todo.find().byLanguages("react");
+    res.status(200).json({
+      result: data,
+      message: "Success",
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: "There was a server side errors",
+    });
+  }
+});
+
 // GET ALL THE TODO
 router.get("/", async (req, res) => {
   // use async await to get data
