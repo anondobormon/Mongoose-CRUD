@@ -4,6 +4,37 @@ const router = express.Router();
 const todoSchema = require("../schema/totoSchema");
 const Todo = new mongoose.model("Todo", todoSchema);
 
+//Get active todo using instance methods
+router.get("/active", async (req, res) => {
+  try {
+    const todo = new Todo();
+    const data = await todo.findActive();
+    res.status(200).json({
+      result: data,
+      message: "Success",
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: "There was a server side error",
+    });
+  }
+});
+
+// Using active todo using callback instance methods
+router.get("/active-callback", (req, res) => {
+  const todo = new Todo();
+  todo.findActiveCallback((err, data) => {
+    if (err) {
+      res.status(500).json({ error: "There was a server side error" });
+    } else {
+      res.status(200).json({
+        result: data,
+        message: "Success",
+      });
+    }
+  });
+});
+
 // GET ALL THE TODO
 router.get("/", async (req, res) => {
   // use async await to get data

@@ -18,4 +18,16 @@ const todoSchema = mongoose.Schema({
     default: Date.now,
   },
 });
+
+// Use instance methods
+todoSchema.methods = {
+  findActive: function () {
+    return mongoose.model("Todo").find({ status: "active" });
+  },
+
+  // use callback function instance methods
+  findActiveCallback: function (cb) {
+    return mongoose.model("Todo").find({ status: "inactive" }, cb);
+  },
+};
 module.exports = todoSchema;
