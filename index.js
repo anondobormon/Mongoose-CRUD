@@ -1,10 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 const todoHandler = require("./routeHandler/todoHandler");
+const userHandler = require("./routeHandler/userHandler");
 
 const pas = "L7WjwKRuFQOkvnaU";
 
 const app = express();
+dotenv.config();
 app.use(express.json());
 
 // Database connection with mongoose
@@ -20,6 +23,7 @@ mongoose
 // Application Routes
 
 app.use("/todo", todoHandler);
+app.use("/user", userHandler);
 
 // Default error handler
 
