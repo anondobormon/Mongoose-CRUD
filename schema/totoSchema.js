@@ -17,6 +17,10 @@ const todoSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  user: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 // Use instance methods
